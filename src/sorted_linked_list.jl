@@ -117,7 +117,19 @@ get_element(    lst::MutableLinkedList{V},
                 dict::Dict{K, DataStructures.ListNode{V}},
                 key::K) where {K,V} = haskey(dict, key) ? dict[key].data : nothing
 
-
+"""
+Returns the element following the element associated with the key `key` or `nothing` if there is no next element.
+Throws an error if `key` is not available.
+"""
+function get_next_element(  lst::MutableLinkedList{V}, 
+                            dict::Dict{K, DataStructures.ListNode{V}},
+                            key::K) where {K,V}
+    
+    haskey(dict, key) || error("Key is not in dict")
+    node = dict[key]
+    node.next == lst.node && return nothing
+    return node.next.data
+end
 
 ####################################################################
 # Demonstrating enforcing sorting and connecting to dictionary     #
@@ -143,4 +155,7 @@ delete_element!(l, d, 50)
 @show l
 @show length(l)
 @show get_element(l, d, 50)
+@show get_next_element(l, d, 90)
+@show get_element(l, d, 40)
+@show get_next_element(l, d, 40)
 nothing;
