@@ -33,9 +33,9 @@ println()
 ##################################################
 
 """
-Assumes that the element `V`` has an order (i.e. you can use <).
+Assumes that the element `V` has an order (i.e. you can use <).
 
-Assumes that the linked `list` lst is already sorted.
+Assumes that the linked list `lst` is already sorted.
 
 Assumes the dictionary `dict` does not have the key `key`.
 
