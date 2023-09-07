@@ -1,5 +1,11 @@
 using DataStructures, Random
 
+# This code here is for meant to help with Project 1.
+# It is not code that should be directly used in the project.
+# Students can rather copy the relevant bits and incorporate it in their own code.
+
+# It is basically a form of "wrapping" of the MutableLinkedList type from DataStructures.jl, which supports staying sorted, iteration, and dictionary access.
+
 #############
 # iteration #
 #############
