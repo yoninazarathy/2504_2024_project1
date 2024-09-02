@@ -4,7 +4,7 @@ This project implements polynomial arithmetic and polynomial factorization for p
 
 Students are supposed to create a mirror of the project and create their modifications and improvements according [Project1 description](https://courses.smp.uq.edu.au/MATH2504/2024/assessment_html/project1.html). This repository is similar to repositories of previous years, yet has some differences.
 
-To load all functionality, in the directory of the package:
+To load all functionality, in the directory of the repo:
 
 ```
 ] activate .
