@@ -11,6 +11,10 @@ To load all functionality, in the directory of the package:
 ```
 
 ```
+] instantiate
+```
+
+```
 julia> include("poly_factorization_project.jl")
 ```
 
