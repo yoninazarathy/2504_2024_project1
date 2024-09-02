@@ -16,10 +16,11 @@ A Polynomial type - designed to be for polynomials with integer coefficients.
 struct Polynomial
 
     #A zero packed vector of terms
-    #Terms are assumed to be in order with first term having degree 0, second degree 1, and so fourth
+    #Terms are assumed to be in order
     #until the degree of the polynomial. The leading term (i.e. last) is assumed to be non-zero except 
     #for the zero polynomial where the vector is of length 1.
     #Note: at positions where the coefficient is 0, the power of the term is also 0 (this is how the Term type is designed)
+    #The maximum length allowed for the vector is max_degree+1
     terms::Vector{Term}   
     
     #Inner constructor of 0 polynomial
@@ -35,6 +36,7 @@ struct Polynomial
         end
 
         max_degree = maximum((t)->t.degree, vt)
+        max_degree > max_degree_allowed && error("Cannot create polynomial of degree greater than $max_degree_allowed. You are trying $max_degree.")
         terms = [zero(Term) for i in 0:max_degree] #First set all terms with zeros
 
         #now update based on the input terms
@@ -72,7 +74,6 @@ Construct a polynomial of the form x^p-x.
 """
 cyclotonic_polynomial(p::Int) = Polynomial([Term(1,p), Term(-1,0)])
 
-
 """
 Construct a polynomial of the form x-n.
 """
@@ -108,6 +109,7 @@ function rand(::Type{Polynomial} ;
         
     while true 
         _degree = degree == -1 ? rand(Poisson(mean_degree)) : degree
+        _degree = min(_degree, max_degree_allowed)
         _terms = terms == -1 ? rand(Binomial(_degree,prob_term)) : terms
         degrees = vcat(sort(sample(0:_degree-1,_terms,replace = false)),_degree)
         coeffs = rand(1:max_coeff,_terms+1)
@@ -189,6 +191,7 @@ Push a new term into the polynomial.
 """
 #Note that ideally this would throw and error if pushing another term of degree that is already in the polynomial
 function push!(p::Polynomial, t::Term) 
+    t.degree > max_degree_allowed && error("Cannot create polynomial of degree greater than $max_degree_allowed. You are trying $(t.degree).")
     if t.degree <= degree(p)
         p.terms[t.degree + 1] = t
     else
@@ -306,14 +309,6 @@ function mod(f::Polynomial, p::Int)::Polynomial
         f_out.terms[i] = mod(f_out.terms[i], p)
     end
     return trim!(f_out)
-        
-    # p_out = Polynomial()
-    # for t in f
-    #     new_term = mod(t, p)
-    #     @show new_term
-    #     push!(p_out, new_term)
-    # end
-    # return p_out
 end
 
 """

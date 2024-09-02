@@ -12,6 +12,8 @@ import Base: %
 import Base: push!, pop!, iszero, show, isless, map, map!, iterate, length, last
 import Base: +, -, *, mod, %, ÷, ==, ^, rand, rem, zero, one
 
+const max_degree_allowed = 400
+
 include("src/general_alg.jl")
 include("src/term.jl")
 include("src/polynomial.jl")

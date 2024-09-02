@@ -17,6 +17,7 @@ struct Term  #structs are immutable by default
     coeff::Int
     degree::Int
     function Term(coeff::Int, degree::Int)
+        degree > max_degree_allowed && error("Cannot create polynomial of degree greater than $max_degree_allowed. You are trying $degree.")
         degree < 0 && error("Degree must be non-negative")
         coeff != 0 ? new(coeff,degree) : new(coeff,0)
     end
